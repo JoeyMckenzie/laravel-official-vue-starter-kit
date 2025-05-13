@@ -1,7 +1,6 @@
+import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
 import prettier from 'eslint-config-prettier';
 import vue from 'eslint-plugin-vue';
-
-import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
 
 export default defineConfigWithVueTs(
     vue.configs['flat/essential'],
