@@ -39,9 +39,15 @@ final class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
+        /** @var string $quote */
+        $quote = Inspiring::quotes()->random();
 
-        return [
+        /** @var string $message */
+        /** @var string $author */
+        [$message, $author] = str($quote)->explode('-');
+
+        /** @var array<string, mixed> $merged */
+        $merged = [
             ...parent::share($request),
             'name' => config('app.name'),
             'quote' => ['message' => trim($message), 'author' => trim($author)],
@@ -54,5 +60,7 @@ final class HandleInertiaRequests extends Middleware
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
+
+        return $merged;
     }
 }
