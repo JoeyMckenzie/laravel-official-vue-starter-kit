@@ -3,10 +3,10 @@ name: Run CI
 on:
   push:
     branches:
-      - main
+      - feature/golden-path
   pull_request:
     branches:
-      - main
+      - feature/golden-path
 
 permissions:
   contents: write

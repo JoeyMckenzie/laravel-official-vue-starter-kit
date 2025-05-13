@@ -3,12 +3,10 @@ name: tests
 on:
   push:
     branches:
-      - develop
-      - main
+      - feature/golden-path
   pull_request:
     branches:
-      - develop
-      - main
+      - feature/golden-path
 
 jobs:
   ci:

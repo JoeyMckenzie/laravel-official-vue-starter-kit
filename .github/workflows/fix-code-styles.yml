@@ -2,6 +2,8 @@ name: Fix code style issues
 
 on:
   push:
+    branches:
+      - feature/golden-path
     paths:
       - '**.php'
       - '**.tsx'
