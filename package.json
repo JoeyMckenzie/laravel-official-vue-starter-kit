@@ -2,8 +2,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
-        "build:ssr": "vite build && vite build --ssr",
+        "build": "vue-tsc && vite build",
+        "build:ssr": "vue-tsc && vite build && vite build --ssr",
         "dev": "vite",
         "fmt": "prettier --write resources/",
         "fmt:check": "prettier --check resources/",
@@ -21,7 +21,7 @@
         "prettier-plugin-organize-imports": "^4.1.0",
         "prettier-plugin-tailwindcss": "^0.6.11",
         "typescript-eslint": "^8.23.0",
-        "vue-tsc": "^2.2.4"
+        "vue-tsc": "^2.2.10"
     },
     "dependencies": {
         "@inertiajs/vue3": "^2.0.0",
