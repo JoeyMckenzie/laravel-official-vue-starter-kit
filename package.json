@@ -7,7 +7,9 @@
         "dev": "vite",
         "fmt": "prettier --write resources/",
         "fmt:check": "prettier --check resources/",
-        "lint": "eslint . --fix"
+        "lint": "eslint . --fix",
+        "lint:check": "eslint .",
+        "check": "npm run fmt:check && npm run lint:check"
     },
     "devDependencies": {
         "@eslint/js": "^9.19.0",

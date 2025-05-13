@@ -77,7 +77,14 @@
         "lint": "XDEBUG_MODE=off vendor/bin/phpstan analyze",
         "refactor": "vendor/bin/rector process",
         "refactor:test": "vendor/bin/rector process --dry-run",
-        "typos": "vendor/bin/peck"
+        "typos": "vendor/bin/peck",
+        "ci": [
+            "@lint",
+            "@fmt:test",
+            "@refactor:test",
+            "@test",
+            "@typos"
+        ]
     },
     "extra": {
         "laravel": {
