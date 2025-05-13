@@ -72,12 +72,17 @@
             "@php artisan config:clear --ansi",
             "@php artisan test"
         ],
+        "prepare": "git config core.hookspath .githooks",
         "fmt": "vendor/bin/pint -vv",
         "fmt:test": "vendor/bin/pint --test",
         "lint": "XDEBUG_MODE=off vendor/bin/phpstan analyze",
         "refactor": "vendor/bin/rector process",
         "refactor:test": "vendor/bin/rector process --dry-run",
         "typos": "vendor/bin/peck",
+        "fix": [
+            "@fmt",
+            "@refactor"
+        ],
         "ci": [
             "@lint",
             "@fmt:test",
