@@ -1,25 +1,25 @@
 <script lang="ts" setup>
-import AppLogo from '@/components/AppLogo.vue';
-import AppLogoIcon from '@/components/AppLogoIcon.vue';
-import Breadcrumbs from '@/components/Breadcrumbs.vue';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import type { BreadcrumbItem, NavItem, SharedData } from "@/types";
+import { Link, usePage } from "@inertiajs/vue3";
+import { BookOpen, Folder, LayoutGrid, Menu, Search } from "lucide-vue-next";
+import { computed } from "vue";
+import AppLogo from "@/components/AppLogo.vue";
+import AppLogoIcon from "@/components/AppLogoIcon.vue";
+import Breadcrumbs from "@/components/Breadcrumbs.vue";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import {
     NavigationMenu,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
     navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import UserMenuContent from '@/components/UserMenuContent.vue';
-import { getInitials } from '@/composables/useInitials';
-import type { BreadcrumbItem, NavItem, SharedData } from '@/types';
-import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-vue-next';
-import { computed } from 'vue';
+} from "@/components/ui/navigation-menu";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import UserMenuContent from "@/components/UserMenuContent.vue";
+import { getInitials } from "@/composables/useInitials";
 
 interface Props {
     breadcrumbs?: BreadcrumbItem[];
@@ -33,26 +33,26 @@ const page = usePage<SharedData>();
 const auth = computed(() => page.props.auth);
 const isCurrentRoute = computed(() => (url: string) => page.url === url);
 const activeItemStyles = computed(
-    () => (url: string) => (isCurrentRoute.value(url) ? 'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100' : ''),
+    () => (url: string) => (isCurrentRoute.value(url) ? "text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100" : ""),
 );
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
-        href: '/dashboard',
+        title: "Dashboard",
+        href: "/dashboard",
         icon: LayoutGrid,
     },
 ];
 
 const rightNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/vue-starter-kit',
+        title: "Repository",
+        href: "https://github.com/laravel/vue-starter-kit",
         icon: Folder,
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
+        title: "Documentation",
+        href: "https://laravel.com/docs/starter-kits#vue",
         icon: BookOpen,
     },
 ];
@@ -71,7 +71,9 @@ const rightNavItems: NavItem[] = [
                             </Button>
                         </SheetTrigger>
                         <SheetContent class="w-[300px] p-6" side="left">
-                            <SheetTitle class="sr-only">Navigation Menu</SheetTitle>
+                            <SheetTitle class="sr-only">
+                                Navigation Menu
+                            </SheetTitle>
                             <SheetHeader class="flex justify-start text-left">
                                 <AppLogoIcon class="size-6 fill-current text-black dark:text-white" />
                             </SheetHeader>
@@ -117,7 +119,7 @@ const rightNavItems: NavItem[] = [
                             <NavigationMenuItem v-for="(item, index) in mainNavItems" :key="index" class="relative flex h-full items-center">
                                 <Link :href="item.href">
                                     <NavigationMenuLink
-                                        :class="[navigationMenuTriggerStyle(), activeItemStyles(item.href), 'h-9 cursor-pointer px-3']"
+                                        class="h-9 cursor-pointer px-3" :class="[navigationMenuTriggerStyle(), activeItemStyles(item.href)]"
                                     >
                                         <component :is="item.icon" v-if="item.icon" class="mr-2 h-4 w-4" />
                                         {{ item.title }}
@@ -126,7 +128,7 @@ const rightNavItems: NavItem[] = [
                                 <div
                                     v-if="isCurrentRoute(item.href)"
                                     class="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"
-                                ></div>
+                                />
                             </NavigationMenuItem>
                         </NavigationMenuList>
                     </NavigationMenu>

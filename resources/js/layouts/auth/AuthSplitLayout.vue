@@ -1,16 +1,15 @@
 <script lang="ts" setup>
-import AppLogoIcon from '@/components/AppLogoIcon.vue';
-import { SharedData } from '@/types';
-import { Link, usePage } from '@inertiajs/vue3';
-
-const page = usePage<SharedData>();
-const name = page.props.name;
-const quote = page.props.quote;
+import type { SharedData } from "@/types";
+import { Link, usePage } from "@inertiajs/vue3";
+import AppLogoIcon from "@/components/AppLogoIcon.vue";
 
 defineProps<{
     title?: string;
     description?: string;
 }>();
+const page = usePage<SharedData>();
+const name = page.props.name;
+const quote = page.props.quote;
 </script>
 
 <template>
@@ -23,16 +22,24 @@ defineProps<{
             </Link>
             <div v-if="quote" class="relative z-20 mt-auto">
                 <blockquote class="space-y-2">
-                    <p class="text-lg">&ldquo;{{ quote.message }}&rdquo;</p>
-                    <footer class="text-sm text-neutral-300">{{ quote.author }}</footer>
+                    <p class="text-lg">
+                        &ldquo;{{ quote.message }}&rdquo;
+                    </p>
+                    <footer class="text-sm text-neutral-300">
+                        {{ quote.author }}
+                    </footer>
                 </blockquote>
             </div>
         </div>
         <div class="lg:p-8">
             <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
                 <div class="flex flex-col space-y-2 text-center">
-                    <h1 v-if="title" class="text-xl font-medium tracking-tight">{{ title }}</h1>
-                    <p v-if="description" class="text-muted-foreground text-sm">{{ description }}</p>
+                    <h1 v-if="title" class="text-xl font-medium tracking-tight">
+                        {{ title }}
+                    </h1>
+                    <p v-if="description" class="text-muted-foreground text-sm">
+                        {{ description }}
+                    </p>
                 </div>
                 <slot />
             </div>

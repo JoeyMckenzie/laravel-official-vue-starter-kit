@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import AppLogoIcon from '@/components/AppLogoIcon.vue';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Link } from '@inertiajs/vue3';
+import { Link } from "@inertiajs/vue3";
+import AppLogoIcon from "@/components/AppLogoIcon.vue";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 defineProps<{
     title?: string;
@@ -21,7 +21,9 @@ defineProps<{
             <div class="flex flex-col gap-6">
                 <Card class="rounded-xl">
                     <CardHeader class="px-10 pt-8 pb-0 text-center">
-                        <CardTitle class="text-xl">{{ title }}</CardTitle>
+                        <CardTitle class="text-xl">
+                            {{ title }}
+                        </CardTitle>
                         <CardDescription>
                             {{ description }}
                         </CardDescription>

@@ -1,18 +1,16 @@
-import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
-import prettier from 'eslint-config-prettier';
-import vue from 'eslint-plugin-vue';
+import antfu from "@antfu/eslint-config";
 
-export default defineConfigWithVueTs(
-    vue.configs['flat/essential'],
-    vueTsConfigs.recommended,
+export default antfu(
     {
-        ignores: ['vendor', 'node_modules', 'public', 'bootstrap/ssr', 'tailwind.config.js', 'resources/js/components/ui/*'],
-    },
-    {
-        rules: {
-            'vue/multi-word-component-names': 'off',
-            '@typescript-eslint/no-explicit-any': 'off',
+        vue: true,
+        typescript: true,
+        stylistic: {
+            indent: 4,
+            quotes: "double",
+            semi: true,
         },
+        ignores: [
+            ".github/",
+        ],
     },
-    prettier,
 );

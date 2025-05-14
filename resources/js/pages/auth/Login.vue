@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import InputError from '@/components/InputError.vue';
-import TextLink from '@/components/TextLink.vue';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import AuthBase from '@/layouts/AuthLayout.vue';
-import { Head, useForm } from '@inertiajs/vue3';
-import { LoaderCircle } from 'lucide-vue-next';
+import { Head, useForm } from "@inertiajs/vue3";
+import { LoaderCircle } from "lucide-vue-next";
+import InputError from "@/components/InputError.vue";
+import TextLink from "@/components/TextLink.vue";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import AuthBase from "@/layouts/AuthLayout.vue";
 
 defineProps<{
     status?: string;
@@ -15,16 +15,16 @@ defineProps<{
 }>();
 
 const form = useForm({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     remember: false,
 });
 
-const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
+function submit() {
+    form.post(route("login"), {
+        onFinish: () => form.reset("password"),
     });
-};
+}
 </script>
 
 <template>
@@ -35,18 +35,18 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit" class="flex flex-col gap-6">
+        <form class="flex flex-col gap-6" @submit.prevent="submit">
             <div class="grid gap-6">
                 <div class="grid gap-2">
                     <Label for="email">Email address</Label>
                     <Input
                         id="email"
+                        v-model="form.email"
                         type="email"
                         required
                         autofocus
                         :tabindex="1"
                         autocomplete="email"
-                        v-model="form.email"
                         placeholder="email@example.com"
                     />
                     <InputError :message="form.errors.email" />
@@ -61,11 +61,11 @@ const submit = () => {
                     </div>
                     <Input
                         id="password"
+                        v-model="form.password"
                         type="password"
                         required
                         :tabindex="2"
                         autocomplete="current-password"
-                        v-model="form.password"
                         placeholder="Password"
                     />
                     <InputError :message="form.errors.password" />
@@ -86,7 +86,9 @@ const submit = () => {
 
             <div class="text-muted-foreground text-center text-sm">
                 Don't have an account?
-                <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
+                <TextLink :href="route('register')" :tabindex="5">
+                    Sign up
+                </TextLink>
             </div>
         </form>
     </AuthBase>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { SidebarInset } from '@/components/ui/sidebar';
-import { computed } from 'vue';
+import { computed } from "vue";
+import { SidebarInset } from "@/components/ui/sidebar";
 
 interface Props {
-    variant?: 'header' | 'sidebar';
+    variant?: "header" | "sidebar";
     class?: string;
 }
 

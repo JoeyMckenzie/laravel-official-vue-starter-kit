@@ -37,7 +37,7 @@ info "Detected OS: $OS_RUNNER"
 
 if [ ! -d "$vendor" ]; then
     info "Installing composer dependencies..."
-    composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+    composer install --no-interaction --prefer-dist --no-progress --optimize-autoloader
 fi
 
 if [ ! -d "$node_modules" ]; then
@@ -78,25 +78,22 @@ else
   fi
 fi
 
+info "Running frontend CI checks..."
+
+npm run check
+
 info "Building assets..."
 
+php artisan ziggy:generate
 npm run build:ssr
 
 info "Running backend CI checks..."
 
 composer run ci
 
-info "Auditing composer dependencies..."
+info "Auditing dependencies..."
 
 composer audit
-
-info "Running frontend CI checks..."
-
-npm run check
-npm run build:ssr
-
-info "Auditing npm dependencies..."
-
 npm audit
 
 success "CI successful!"

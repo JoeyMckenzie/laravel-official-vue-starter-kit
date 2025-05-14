@@ -3,7 +3,7 @@
 set -ex
 
 composer run fix
-npm run fix
+npm run lint:fix
 
 if [ -n "$(git diff --name-only)" ]; then
     git add .

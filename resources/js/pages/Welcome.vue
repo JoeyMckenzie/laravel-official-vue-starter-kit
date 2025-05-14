@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { SharedData } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
+import type { SharedData } from "@/types";
+import { Head, Link } from "@inertiajs/vue3";
 
 const props = defineProps<SharedData>();
 </script>
 
 <template>
     <Head title="Welcome">
-        <link href="https://rsms.me/" rel="preconnect" />
-        <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
+        <link href="https://rsms.me/" rel="preconnect">
+        <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
     </Head>
     <div class="flex min-h-screen flex-col items-center bg-[#FDFDFC] p-6 text-[#1b1b18] lg:justify-center lg:p-8 dark:bg-[#0a0a0a]">
         <header class="mb-6 w-full max-w-[335px] text-sm not-has-[nav]:hidden lg:max-w-4xl">
@@ -41,9 +41,11 @@ const props = defineProps<SharedData>();
                 <div
                     class="flex-1 rounded-br-lg rounded-bl-lg bg-white p-6 pb-12 text-[13px] leading-[20px] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] lg:rounded-tl-lg lg:rounded-br-none lg:p-20 dark:bg-[#161615] dark:text-[#EDEDEC] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"
                 >
-                    <h1 class="mb-1 font-medium">Let's get started</h1>
+                    <h1 class="mb-1 font-medium">
+                        Let's get started
+                    </h1>
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                        Laravel has an incredibly rich ecosystem. <br />We suggest starting with the following.
+                        Laravel has an incredibly rich ecosystem. <br>We suggest starting with the following.
                     </p>
                     <ul class="mb-4 flex flex-col lg:mb-6">
                         <li
@@ -786,6 +788,6 @@ const props = defineProps<SharedData>();
                 </div>
             </main>
         </div>
-        <div class="hidden h-14.5 lg:block"></div>
+        <div class="hidden h-14.5 lg:block" />
     </div>
 </template>

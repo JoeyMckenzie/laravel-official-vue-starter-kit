@@ -1,27 +1,27 @@
 <script lang="ts" setup>
-import Heading from '@/components/Heading.vue';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { type NavItem, SharedData } from '@/types';
-import { Link, usePage } from '@inertiajs/vue3';
+import type { NavItem, SharedData } from "@/types";
+import { Link, usePage } from "@inertiajs/vue3";
+import Heading from "@/components/Heading.vue";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 const sidebarNavItems: NavItem[] = [
     {
-        title: 'Profile',
-        href: '/settings/profile',
+        title: "Profile",
+        href: "/settings/profile",
     },
     {
-        title: 'Password',
-        href: '/settings/password',
+        title: "Password",
+        href: "/settings/password",
     },
     {
-        title: 'Appearance',
-        href: '/settings/appearance',
+        title: "Appearance",
+        href: "/settings/appearance",
     },
 ];
 
 const page = usePage<SharedData>();
-const currentPath = page.props.ziggy?.location ? new URL(page.props.ziggy.location).pathname : '';
+const currentPath = page.props.ziggy?.location ? new URL(page.props.ziggy.location).pathname : "";
 </script>
 
 <template>
@@ -34,7 +34,7 @@ const currentPath = page.props.ziggy?.location ? new URL(page.props.ziggy.locati
                     <Button
                         v-for="item in sidebarNavItems"
                         :key="item.href"
-                        :class="['w-full justify-start', { 'bg-muted': currentPath === item.href }]"
+                        class="w-full justify-start" :class="[{ 'bg-muted': currentPath === item.href }]"
                         as-child
                         variant="ghost"
                     >

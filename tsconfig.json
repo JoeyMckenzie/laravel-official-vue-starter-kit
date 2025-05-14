@@ -1,17 +1,17 @@
 {
     "compilerOptions": {
         "target": "ESNext",
-        "useDefineForClassFields": true,
+        "jsx": "preserve",
+        "jsxImportSource": "vue",
         "lib": [
             "ESNext",
             "DOM",
             "DOM.Iterable"
         ],
-        "jsx": "preserve",
-        "jsxImportSource": "vue",
+        "useDefineForClassFields": true,
+        "baseUrl": "./",
         "module": "ESNext",
         "moduleResolution": "bundler",
-        "baseUrl": "./",
         "paths": {
             "@/*": [
                 "./resources/js/*"
@@ -22,13 +22,13 @@
         },
         "resolveJsonModule": true,
         "allowJs": true,
-        "sourceMap": true,
-        "noEmit": true,
-        "isolatedModules": true,
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
         "strict": true,
         "strictNullChecks": true,
+        "noEmit": true,
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": true,
         "skipLibCheck": true
     },
     "include": [
