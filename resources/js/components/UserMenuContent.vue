@@ -1,12 +1,16 @@
-<script setup lang="ts">
-import type { User } from "@/types";
+<script lang="ts" setup>
 import { Link, router } from "@inertiajs/vue3";
 import { LogOut, Settings } from "lucide-vue-next";
-import { DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import {
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import UserInfo from "@/components/UserInfo.vue";
 
 interface Props {
-    user: User;
+    user: App.Data.UserData;
 }
 
 defineProps<Props>();
@@ -19,13 +23,13 @@ function handleLogout() {
 <template>
     <DropdownMenuLabel class="p-0 font-normal">
         <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-            <UserInfo :user="user" :show-email="true" />
+            <UserInfo :show-email="true" :user="user" />
         </div>
     </DropdownMenuLabel>
     <DropdownMenuSeparator />
     <DropdownMenuGroup>
         <DropdownMenuItem :as-child="true">
-            <Link class="block w-full" :href="route('profile.edit')" prefetch as="button">
+            <Link :href="route('profile.edit')" as="button" class="block w-full" prefetch>
                 <Settings class="mr-2 h-4 w-4" />
                 Settings
             </Link>
@@ -33,7 +37,7 @@ function handleLogout() {
     </DropdownMenuGroup>
     <DropdownMenuSeparator />
     <DropdownMenuItem :as-child="true">
-        <Link class="block w-full" method="post" :href="route('logout')" as="button" @click="handleLogout">
+        <Link :href="route('logout')" as="button" class="block w-full" method="post" @click="handleLogout">
             <LogOut class="mr-2 h-4 w-4" />
             Log out
         </Link>

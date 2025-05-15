@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import type { BreadcrumbItem, SharedData, User } from "@/types";
+<script lang="ts" setup>
+import type { BreadcrumbItem, SharedData } from "@/types";
 
 import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
 import DeleteUser from "@/components/DeleteUser.vue";
@@ -26,10 +26,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const page = usePage<SharedData>();
-const user = page.props.auth.user as User;
+const user = page.props.auth.user as App.Data.UserData;
 
 const form = useForm({
-    name: user.name,
+    name: user.fullName,
     email: user.email,
 });
 
@@ -46,13 +46,17 @@ function submit() {
 
         <SettingsLayout>
             <div class="flex flex-col space-y-6">
-                <HeadingSmall title="Profile information" description="Update your name and email address" />
+                <HeadingSmall description="Update your name and email address" title="Profile information" />
 
                 <form class="space-y-6" @submit.prevent="submit">
                     <div class="grid gap-2">
                         <Label for="name">Name</Label>
-                        <Input id="name" v-model="form.name" class="mt-1 block w-full" required autocomplete="name" placeholder="Full name" />
-                        <InputError class="mt-2" :message="form.errors.name" />
+                        <Input
+                            id="name" v-model="form.name" autocomplete="name" class="mt-1 block w-full"
+                            placeholder="Full name"
+                            required
+                        />
+                        <InputError :message="form.errors.name" class="mt-2" />
                     </div>
 
                     <div class="grid gap-2">
@@ -60,23 +64,23 @@ function submit() {
                         <Input
                             id="email"
                             v-model="form.email"
-                            type="email"
-                            class="mt-1 block w-full"
-                            required
                             autocomplete="username"
+                            class="mt-1 block w-full"
                             placeholder="Email address"
+                            required
+                            type="email"
                         />
-                        <InputError class="mt-2" :message="form.errors.email" />
+                        <InputError :message="form.errors.email" class="mt-2" />
                     </div>
 
-                    <div v-if="mustVerifyEmail && !user.email_verified_at">
+                    <div v-if="mustVerifyEmail && !user.emailVerifiedAt">
                         <p class="text-muted-foreground -mt-4 text-sm">
                             Your email address is unverified.
                             <Link
                                 :href="route('verification.send')"
-                                method="post"
                                 as="button"
                                 class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
+                                method="post"
                             >
                                 Click here to resend the verification email.
                             </Link>

@@ -19,7 +19,6 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import UserMenuContent from "@/components/UserMenuContent.vue";
-import { getInitials } from "@/composables/useInitials";
 
 interface Props {
     breadcrumbs?: BreadcrumbItem[];
@@ -116,10 +115,14 @@ const rightNavItems: NavItem[] = [
                 <div class="hidden h-full lg:flex lg:flex-1">
                     <NavigationMenu class="ml-10 flex h-full items-stretch">
                         <NavigationMenuList class="flex h-full items-stretch space-x-2">
-                            <NavigationMenuItem v-for="(item, index) in mainNavItems" :key="index" class="relative flex h-full items-center">
+                            <NavigationMenuItem
+                                v-for="(item, index) in mainNavItems" :key="index"
+                                class="relative flex h-full items-center"
+                            >
                                 <Link :href="item.href">
                                     <NavigationMenuLink
-                                        class="h-9 cursor-pointer px-3" :class="[navigationMenuTriggerStyle(), activeItemStyles(item.href)]"
+                                        :class="[navigationMenuTriggerStyle(), activeItemStyles(item.href)]"
+                                        class="h-9 cursor-pointer px-3"
                                     >
                                         <component :is="item.icon" v-if="item.icon" class="mr-2 h-4 w-4" />
                                         {{ item.title }}
@@ -145,10 +148,16 @@ const rightNavItems: NavItem[] = [
                                 <TooltipProvider :delay-duration="0">
                                     <Tooltip>
                                         <TooltipTrigger>
-                                            <Button as-child class="group h-9 w-9 cursor-pointer" size="icon" variant="ghost">
+                                            <Button
+                                                as-child class="group h-9 w-9 cursor-pointer" size="icon"
+                                                variant="ghost"
+                                            >
                                                 <a :href="item.href" rel="noopener noreferrer" target="_blank">
                                                     <span class="sr-only">{{ item.title }}</span>
-                                                    <component :is="item.icon" class="size-5 opacity-80 group-hover:opacity-100" />
+                                                    <component
+                                                        :is="item.icon"
+                                                        class="size-5 opacity-80 group-hover:opacity-100"
+                                                    />
                                                 </a>
                                             </Button>
                                         </TooltipTrigger>
@@ -161,7 +170,7 @@ const rightNavItems: NavItem[] = [
                         </div>
                     </div>
 
-                    <DropdownMenu>
+                    <DropdownMenu v-if="auth.user">
                         <DropdownMenuTrigger :as-child="true">
                             <Button
                                 class="focus-within:ring-primary relative size-10 w-auto rounded-full p-1 focus-within:ring-2"
@@ -169,9 +178,14 @@ const rightNavItems: NavItem[] = [
                                 variant="ghost"
                             >
                                 <Avatar class="size-8 overflow-hidden rounded-full">
-                                    <AvatarImage v-if="auth.user.avatar" :alt="auth.user.name" :src="auth.user.avatar" />
-                                    <AvatarFallback class="rounded-lg bg-neutral-200 font-semibold text-black dark:bg-neutral-700 dark:text-white">
-                                        {{ getInitials(auth.user?.name) }}
+                                    <AvatarImage
+                                        v-if="auth.user?.profileImage" :alt="auth.user.fullName"
+                                        :src="auth.user.profileImage"
+                                    />
+                                    <AvatarFallback
+                                        class="rounded-lg bg-neutral-200 font-semibold text-black dark:bg-neutral-700 dark:text-white"
+                                    >
+                                        {{ auth.user?.initials }}
                                     </AvatarFallback>
                                 </Avatar>
                             </Button>
