@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { Head, useForm } from "@inertiajs/vue3";
 import { LoaderCircle } from "lucide-vue-next";
 import InputError from "@/components/InputError.vue";
@@ -9,7 +9,8 @@ import { Label } from "@/components/ui/label";
 import AuthBase from "@/layouts/AuthLayout.vue";
 
 const form = useForm({
-    name: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     password_confirmation: "",
@@ -23,20 +24,44 @@ function submit() {
 </script>
 
 <template>
-    <AuthBase title="Create an account" description="Enter your details below to create your account">
+    <AuthBase description="Enter your details below to create your account" title="Create an account">
         <Head title="Register" />
 
         <form class="flex flex-col gap-6" @submit.prevent="submit">
             <div class="grid gap-6">
                 <div class="grid gap-2">
-                    <Label for="name">Name</Label>
-                    <Input id="name" v-model="form.name" type="text" required autofocus :tabindex="1" autocomplete="name" placeholder="Full name" />
-                    <InputError :message="form.errors.name" />
+                    <Label for="first_name">First name</Label>
+                    <Input
+                        id="first_name" v-model="form.first_name"
+                        :tabindex="1"
+                        autocomplete="first_name"
+                        autofocus
+                        placeholder="First name"
+                        required type="text"
+                    />
+                    <InputError :message="form.errors.first_name" />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label for="last_name">Last name</Label>
+                    <Input
+                        id="last_name" v-model="form.last_name"
+                        :tabindex="1"
+                        autocomplete="last_name"
+                        autofocus
+                        placeholder="Last name"
+                        required type="text"
+                    />
+                    <InputError :message="form.errors.last_name" />
                 </div>
 
                 <div class="grid gap-2">
                     <Label for="email">Email address</Label>
-                    <Input id="email" v-model="form.email" type="email" required :tabindex="2" autocomplete="email" placeholder="email@example.com" />
+                    <Input
+                        id="email" v-model="form.email" :tabindex="2" autocomplete="email"
+                        placeholder="email@example.com" required
+                        type="email"
+                    />
                     <InputError :message="form.errors.email" />
                 </div>
 
@@ -45,11 +70,11 @@ function submit() {
                     <Input
                         id="password"
                         v-model="form.password"
-                        type="password"
-                        required
                         :tabindex="3"
                         autocomplete="new-password"
                         placeholder="Password"
+                        required
+                        type="password"
                     />
                     <InputError :message="form.errors.password" />
                 </div>
@@ -59,16 +84,16 @@ function submit() {
                     <Input
                         id="password_confirmation"
                         v-model="form.password_confirmation"
-                        type="password"
-                        required
                         :tabindex="4"
                         autocomplete="new-password"
                         placeholder="Confirm password"
+                        required
+                        type="password"
                     />
                     <InputError :message="form.errors.password_confirmation" />
                 </div>
 
-                <Button type="submit" class="mt-2 w-full" tabindex="5" :disabled="form.processing">
+                <Button :disabled="form.processing" class="mt-2 w-full" tabindex="5" type="submit">
                     <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
                     Create account
                 </Button>
@@ -76,7 +101,7 @@ function submit() {
 
             <div class="text-muted-foreground text-center text-sm">
                 Already have an account?
-                <TextLink :href="route('login')" class="underline underline-offset-4" :tabindex="6">
+                <TextLink :href="route('login')" :tabindex="6" class="underline underline-offset-4">
                     Log in
                 </TextLink>
             </div>

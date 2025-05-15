@@ -29,7 +29,8 @@ const page = usePage<SharedData>();
 const user = page.props.auth.user as App.Data.UserData;
 
 const form = useForm({
-    name: user.fullName,
+    first_name: user.firstName,
+    last_name: user.lastName,
     email: user.email,
 });
 
@@ -49,14 +50,32 @@ function submit() {
                 <HeadingSmall description="Update your name and email address" title="Profile information" />
 
                 <form class="space-y-6" @submit.prevent="submit">
-                    <div class="grid gap-2">
-                        <Label for="name">Name</Label>
-                        <Input
-                            id="name" v-model="form.name" autocomplete="name" class="mt-1 block w-full"
-                            placeholder="Full name"
-                            required
-                        />
-                        <InputError :message="form.errors.name" class="mt-2" />
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="grid gap-2">
+                            <Label for="first_name">First name</Label>
+                            <Input
+                                id="first_name"
+                                v-model="form.first_name"
+                                autocomplete="first_name"
+                                class="mt-1 block w-full"
+                                placeholder="First name"
+                                required
+                            />
+                            <InputError :message="form.errors.first_name" class="mt-2" />
+                        </div>
+
+                        <div class="grid gap-2">
+                            <Label for="last_name">Last name</Label>
+                            <Input
+                                id="name"
+                                v-model="form.last_name"
+                                autocomplete="last_name"
+                                class="mt-1 block w-full"
+                                placeholder="Last name"
+                                required
+                            />
+                            <InputError :message="form.errors.last_name" class="mt-2" />
+                        </div>
                     </div>
 
                     <div class="grid gap-2">

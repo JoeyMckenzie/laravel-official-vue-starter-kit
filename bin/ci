@@ -80,7 +80,7 @@ fi
 
 info "Running frontend CI checks..."
 
-npm run check
+npm run lint
 
 info "Building assets..."
 
