@@ -2,11 +2,10 @@ import type { DefineComponent } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import createServer from "@inertiajs/vue3/server";
 import { renderToString } from "@vue/server-renderer";
-import { useColorMode } from "@vueuse/core";
-import { useCookies } from "@vueuse/integrations/useCookies";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { createSSRApp, h } from "vue";
 import { route as ziggyRoute } from "ziggy-js";
+import { initializeAppearance } from "@/lib/utils";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -40,17 +39,7 @@ createServer(page =>
                 globalThis.route = route;
             }
 
-            const cookie = useCookies(["appearance"]);
-            const { store } = useColorMode();
-            const appearance: "light" | "dark" | "auto" | null = cookie.get("appearance") ?? null;
-
-            if (appearance) {
-                store.value = appearance;
-            }
-            else {
-                store.value = "auto";
-            }
-
+            initializeAppearance();
             app.use(plugin);
 
             return app;

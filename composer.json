@@ -13,6 +13,8 @@
         "inertiajs/inertia-laravel": "^2.0",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "spatie/laravel-data": "^4.15",
+        "spatie/laravel-typescript-transformer": "^2.5",
         "tightenco/ziggy": "^2.4"
     },
     "require-dev": {
@@ -71,6 +73,12 @@
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#c4b5fd,#fb7185,#fdba74\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"php artisan inertia:start-ssr\" --names=queue,logs,ssr"
         ],
+        "generate:ide-helpers": [
+            "php artisan ide-helper:generate",
+            "php artisan ide-helper:models -RW",
+            "php artisan ide-helper:meta",
+            "@fmt"
+        ],
         "test:unit": "vendor/bin/pest --parallel",
         "test:watch": "vendor/bin/pest --parallel --watch",
         "test:coverage": "vendor/bin/pest --coverage --parallel",
@@ -108,6 +116,11 @@
             "@refactor:test",
             "@test",
             "@typos"
+        ],
+        "transform": "php artisan typescript:transform --format",
+        "reschema": [
+            "php artisan migrate:fresh --seed",
+            "@generate:ide-helpers"
         ]
     },
     "extra": {
