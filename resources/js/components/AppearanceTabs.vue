@@ -4,7 +4,7 @@ import { useCookies } from "@vueuse/integrations/useCookies";
 import { Monitor, Moon, Sun } from "lucide-vue-next";
 import { watchEffect } from "vue";
 
-const { store } = useColorMode({});
+const { store } = useColorMode();
 const cookies = useCookies(["appearance"]);
 const tabs = [
     { value: "light", Icon: Sun, label: "Light" },

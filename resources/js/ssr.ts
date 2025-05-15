@@ -39,17 +39,16 @@ createServer(page =>
                 // @ts-expect-error: global will be available
                 globalThis.route = route;
             }
-            else {
-                const cookie = useCookies(["appearance"]);
-                const { store } = useColorMode();
-                const appearance: "light" | "dark" | "auto" | null = cookie.get("appearance") ?? null;
 
-                if (appearance) {
-                    store.value = appearance;
-                }
-                else {
-                    store.value = "auto";
-                }
+            const cookie = useCookies(["appearance"]);
+            const { store } = useColorMode();
+            const appearance: "light" | "dark" | "auto" | null = cookie.get("appearance") ?? null;
+
+            if (appearance) {
+                store.value = appearance;
+            }
+            else {
+                store.value = "auto";
             }
 
             app.use(plugin);
