@@ -10,7 +10,9 @@ use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -34,14 +36,28 @@ final class ProfileController extends Controller
     {
         /** @var User $user */
         $user = $request->user();
-
-        /** @var mixed[] $validated */
-        $validated = $request->validated();
-
-        $user->fill($validated);
+        $user->fill([
+            'first_name' => $request->string('first_name')->toString(),
+            'last_name' => $request->string('last_name')->toString(),
+            'email' => $request->string('email')->toString(),
+        ]);
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
+        }
+
+        if ($request->hasFile('profile_image')) {
+            if ($user->avatar !== null) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+
+            /** @var UploadedFile $file */
+            $file = $request->file('profile_image');
+            $avatar = $file->store('avatars', 'public');
+
+            if ($avatar !== false) {
+                $user->avatar = $avatar;
+            }
         }
 
         $user->save();

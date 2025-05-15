@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import type { BreadcrumbItem, SharedData } from "@/types";
-
-import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/vue3";
+import { computed, ref, useTemplateRef } from "vue";
 import DeleteUser from "@/components/DeleteUser.vue";
 import HeadingSmall from "@/components/HeadingSmall.vue";
 import InputError from "@/components/InputError.vue";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,16 +27,63 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const page = usePage<SharedData>();
-const user = page.props.auth.user as App.Data.UserData;
+const user = computed(() => page.props.auth.user as App.Data.UserData);
+const profileImage = ref<string | null>(null);
+const photoInput = useTemplateRef<HTMLInputElement>("photo-input");
 
-const form = useForm({
-    first_name: user.firstName,
-    last_name: user.lastName,
-    email: user.email,
+const form = useForm<{
+    _method: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    profile_image?: File | null;
+}>({
+    _method: "patch",
+    first_name: user.value.firstName,
+    last_name: user.value.lastName,
+    email: user.value.email,
+    profile_image: null,
 });
 
+function selectNewPhoto() {
+    photoInput.value?.click();
+}
+
+function updatePhotoPreview() {
+    const photo = photoInput.value?.files?.[0];
+
+    if (!photo) {
+        return;
+    }
+
+    form.profile_image = photo;
+    const reader = new FileReader();
+
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+        profileImage.value = e.target?.result as string;
+    };
+
+    reader.readAsDataURL(photo);
+}
+
+function deletePhoto() {
+    router.delete(route("profile-photo.destroy"), {
+        preserveScroll: true,
+        onSuccess: () => {
+            profileImage.value = null;
+            clearPhotoFileInput();
+        },
+    });
+}
+
+function clearPhotoFileInput() {
+    if (photoInput.value) {
+        photoInput.value.value = "";
+    }
+}
+
 function submit() {
-    form.patch(route("profile.update"), {
+    form.post(route("profile.update"), {
         preserveScroll: true,
     });
 }
@@ -50,6 +98,47 @@ function submit() {
                 <HeadingSmall description="Update your name and email address" title="Profile information" />
 
                 <form class="space-y-6" @submit.prevent="submit">
+                    <div class="grid gap-2">
+                        <input
+                            id="photo"
+                            ref="photo-input"
+                            accept="image/*"
+                            class="hidden"
+                            type="file"
+                            @change="updatePhotoPreview"
+                        >
+                        <div class="flex items-center gap-4">
+                            <Avatar class="h-20 w-20">
+                                <AvatarImage
+                                    :alt="user.fullName"
+                                    :src="profileImage ?? user.profileImage ?? ''"
+                                />
+                                <AvatarFallback>
+                                    {{ user.initials }}
+                                </AvatarFallback>
+                            </Avatar>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                @click="selectNewPhoto"
+                            >
+                                Select photo
+                            </Button>
+                            <Button
+                                v-if="user.profileImage"
+                                type="button"
+                                variant="outline"
+                                @click="deletePhoto"
+                            >
+                                Remove photo
+                            </Button>
+                        </div>
+                        <InputError
+                            :message="form.errors.profile_image"
+                            class="mt-2"
+                        />
+                    </div>
+
                     <div class="grid grid-cols-2 gap-6">
                         <div class="grid gap-2">
                             <Label for="first_name">First name</Label>

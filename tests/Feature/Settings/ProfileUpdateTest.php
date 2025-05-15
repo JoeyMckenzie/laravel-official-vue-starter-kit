@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tests\Feature\Settings;
 
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 describe('Profile updates', function (): void {
     it('can display the profile page', function (): void {
@@ -89,5 +91,60 @@ describe('Profile updates', function (): void {
             ->assertRedirect('/settings/profile');
 
         $this->assertNotNull($user->fresh());
+    });
+
+    it('ensures profile photo can be uploaded', function (): void {
+        $user = User::factory()->create();
+
+        Storage::fake('public');
+
+        $response = $this
+            ->actingAs($user)
+            ->patch('/settings/profile', [
+                'first_name' => 'Test',
+                'last_name' => 'User',
+                'email' => $user->email,
+                'profile_image' => UploadedFile::fake()->image('photo.jpg'),
+            ]);
+
+        $response
+            ->assertSessionHasNoErrors()
+            ->assertRedirect('/settings/profile');
+
+        $user->refresh();
+
+        expect($user->avatar)->not->toBeNull();
+        expect(Storage::disk('public')->exists($user->avatar))->toBeTrue();
+    });
+
+    it('ensures profile photo can be removed', function (): void {
+        $user = User::factory()->create();
+
+        Storage::fake('public');
+
+        $response = $this->actingAs($user)->patch('/settings/profile', [
+            'first_name' => 'Test',
+            'last_name' => 'User',
+            'email' => $user->email,
+            'profile_image' => UploadedFile::fake()->image('photo.jpg'),
+        ]);
+
+        $response->assertSessionHasNoErrors()
+            ->assertRedirect('/settings/profile');
+
+        $user->refresh();
+        $this->assertNotNull($user->avatar);
+        $this->assertTrue(Storage::disk('public')->exists($user->avatar));
+
+        $oldPath = $user->avatar;
+
+        $response = $this->actingAs($user)->delete('/settings/profile-photo');
+
+        $response->assertSessionHasNoErrors()
+            ->assertRedirect('/settings/profile');
+
+        $user->refresh();
+        $this->assertNull($user->avatar);
+        $this->assertFalse(Storage::disk('public')->exists($oldPath));
     });
 });

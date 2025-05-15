@@ -8,14 +8,16 @@
             "nav",
             "dropdown",
             "js",
-            "filesystems"
+            "filesystems",
+            "eslint"
         ],
         "paths": [
             "tests",
             "tsconfig.json",
             "resources/js/components/ui",
             "public/favicon.svg",
-            "public/favicon.ico"
+            "public/favicon.ico",
+            "storage/debugbar"
         ]
     }
 }
