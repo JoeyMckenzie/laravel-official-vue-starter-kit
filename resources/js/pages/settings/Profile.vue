@@ -69,6 +69,7 @@ function updatePhotoPreview() {
 function deletePhoto() {
     router.delete(route("profile-photo.destroy"), {
         preserveScroll: true,
+        preserveState: false,
         onSuccess: () => {
             profileImage.value = null;
             clearPhotoFileInput();
@@ -85,6 +86,7 @@ function clearPhotoFileInput() {
 function submit() {
     form.post(route("profile.update"), {
         preserveScroll: true,
+        preserveState: false,
     });
 }
 </script>
