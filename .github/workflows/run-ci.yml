@@ -15,21 +15,21 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup PHP
-          uses: shivammathur/setup-php@v2
-          with:
-            php-version: "8.4"
-            tools: composer:v2
-            coverage: xdebug
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          tools: composer:v2
+          coverage: xdebug
 
       - name: Setup Node
-          uses: actions/setup-node@v4
-          with:
-            node-version: "22"
-            cache: npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
 
       - name: Run CI checks
-          run: bin/ci
-          working-directory: ${{ github.workspace }}
+        run: bin/ci
+        working-directory: ${{ github.workspace }}
 
     # - name: Notify Laravel Forge for Deployment
     #   run: curl -X POST ${{ secrets.FORGE_DEPLOYMENT_URL }}
