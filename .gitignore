@@ -25,3 +25,4 @@ yarn-error.log
 resources/js/ziggy.js
 .phpstorm.meta.php
 _ide_helper.php
+build/
