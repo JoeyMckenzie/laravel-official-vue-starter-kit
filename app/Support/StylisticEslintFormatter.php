@@ -4,23 +4,17 @@ declare(strict_types=1);
 
 namespace App\Support;
 
-use RuntimeException;
+use Illuminate\Support\Facades\Process;
 use Spatie\TypeScriptTransformer\Formatters\Formatter;
 
 final class StylisticEslintFormatter implements Formatter
 {
     public function format(string $file): void
     {
-        exec('npm run lint:fix', $output, $resultCode);
+        $process = Process::run('npm run lint:fix');
 
-        if ($resultCode !== 0) {
-            throw new RuntimeException(
-                sprintf(
-                    'Failed to format file %s. Output: %s',
-                    $file,
-                    implode("\n", $output)
-                )
-            );
+        if ($process->failed()) {
+            $process->throw();
         }
     }
 }

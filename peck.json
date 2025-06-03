@@ -9,15 +9,16 @@
             "dropdown",
             "js",
             "filesystems",
-            "eslint"
+            "eslint",
+            "artisense",
+            "debugbar"
         ],
         "paths": [
             "tests",
             "tsconfig.json",
             "resources/js/components/ui",
             "public/favicon.svg",
-            "public/favicon.ico",
-            "storage/debugbar"
+            "public/favicon.ico"
         ]
     }
 }

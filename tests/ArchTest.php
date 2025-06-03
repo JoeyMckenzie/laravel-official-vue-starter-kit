@@ -9,7 +9,11 @@ use Illuminate\Contracts\Validation\ValidationRule;
 arch()->preset()->laravel();
 arch()->preset()->php();
 arch()->preset()->security();
-arch()->preset()->strict();
+
+arch('Types and equality are strict')
+    ->expect('App\\')
+    ->toUseStrictTypes()
+    ->toUseStrictEquality();
 
 arch('Rules should be suffixed with rule', fn (): \Pest\Arch\Contracts\ArchExpectation => expect('App\Http\Rules')
     ->classes()
