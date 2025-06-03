@@ -1,7 +1,7 @@
 <div align="center" style="padding-top: 2rem;">
     <div style="display: inline-block;">
         <img src="https://img.shields.io/github/actions/workflow/status/joeymckenzie/laravel-official-vue-starter-kit/run-ci.yml?branch=main&label=ci" alt="ci" />
-        <img src="https://img.shields.io/github/actions/workflow/status/joeymckenzie/laravel-official-vue-starter-kit/fix-code-styles.yml?branch=main&label=code%20style" alt="packgist downloads" />
+        <img src="https://img.shields.io/github/actions/workflow/status/joeymckenzie/laravel-official-vue-starter-kit/fix-code-styles.yml?branch=main&label=code%20style" alt="fix code styles" />
     </div>
 </div>
 
