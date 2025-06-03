@@ -11,7 +11,7 @@ export default antfu(
         },
         ignores: [
             ".github/",
-            "storage/debugbar/",
+            "storage/",
         ],
     },
 );
