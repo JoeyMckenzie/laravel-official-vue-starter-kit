@@ -1,12 +1,23 @@
+<div align="center" style="padding-top: 2rem;">
+    <div style="display: inline-block;">
+        <img src="https://img.shields.io/github/actions/workflow/status/joeymckenzie/laravel-official-vue-starter-kit/run-ci.yml?branch=main&label=ci" alt="ci" />
+        <img src="https://img.shields.io/github/actions/workflow/status/joeymckenzie/laravel-official-vue-starter-kit/fix-code-styles.yml?branch=main&label=code%20style" alt="packgist downloads" />
+    </div>
+</div>
+
 # Laravel + Vue Starter Kit
 
 ## Introduction
 
-Our Vue starter kit provides a robust, modern starting point for building Laravel applications with a Vue frontend using [Inertia](https://inertiajs.com).
+Our Vue starter kit provides a robust, modern starting point for building Laravel applications with a Vue frontend
+using [Inertia](https://inertiajs.com).
 
-Inertia allows you to build modern, single-page Vue applications using classic server-side routing and controllers. This lets you enjoy the frontend power of Vue combined with the incredible backend productivity of Laravel and lightning-fast Vite compilation.
+Inertia allows you to build modern, single-page Vue applications using classic server-side routing and controllers. This
+lets you enjoy the frontend power of Vue combined with the incredible backend productivity of Laravel and lightning-fast
+Vite compilation.
 
-This Vue starter kit utilizes Vue 3 and the Composition API, TypeScript, Tailwind, and the [shadcn-vue](https://www.shadcn-vue.com) component library.
+This Vue starter kit utilizes Vue 3 and the Composition API, TypeScript, Tailwind, and
+the [shadcn-vue](https://www.shadcn-vue.com) component library.
 
 ## Official Documentation
 
@@ -14,11 +25,13 @@ Documentation for all Laravel starter kits can be found on the [Laravel website]
 
 ## Contributing
 
-Thank you for considering contributing to our starter kit! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Thank you for considering contributing to our starter kit! The contribution guide can be found in
+the [Laravel documentation](https://laravel.com/docs/contributions).
 
 ## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+In order to ensure that the Laravel community is welcoming to all, please review and abide by
+the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
 ## License
 
