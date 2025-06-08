@@ -7,7 +7,17 @@ namespace Tests\Feature\Settings;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-describe('Password updates', function (): void {
+describe('Password update', function (): void {
+    it('can render the password settings page', function (): void {
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->get('/settings/password');
+
+        $response->assertStatus(200);
+    });
+
     it('can update password', function (): void {
         $user = User::factory()->create();
 

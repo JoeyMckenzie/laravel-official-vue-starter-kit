@@ -88,10 +88,7 @@
         "test:ci": "vendor/bin/pest --mutate --min=100 --parallel --ci",
         "test": [
             "@php artisan config:clear --ansi",
-            "@test:unit"
-        ],
-        "test:all": [
-            "@test",
+            "@test:unit",
             "@test:types",
             "@test:coverage"
         ],
@@ -115,7 +112,7 @@
             "@lint",
             "@fmt:test",
             "@refactor:test",
-            "@test:all",
+            "@test",
             "@typos"
         ],
         "transform": "php artisan typescript:transform --format",
